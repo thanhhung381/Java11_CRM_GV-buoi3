@@ -36,7 +36,10 @@ public class AuthServlet extends HttpServlet {
 		switch (path) {
 		case "/login":
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/auth/login.jsp");
-			dispatcher.forward(req, resp);
+			dispatcher.forward(req, resp); 
+			//xem lại sendRedirect và forward trong tài liệu Servlet (trong đó, forward được dùng khi: muốn gửi dữ liệu đi, hoặc muốn sang một trang/servlet mới xử lí dữ liệu)
+			//(forward trước khi sử dụng cần được khai báo trong RequestDispatcher)
+			//Ở đây: dùng forward để chuyển tới một trang/servlet mới xử lí dữ liệu là login.jsp.
 			break;
 
 		default:
@@ -59,14 +62,19 @@ public class AuthServlet extends HttpServlet {
 			User user = biz.login(email, password);
 			
 			if(user != null) { // logged in successfully
-				HttpSession session = req.getSession();
+				HttpSession session = req.getSession(); //Khởi tạo một session
 				
-				session.setAttribute("userId", "" + user.getId());
-				session.setMaxInactiveInterval(30);
+				session.setAttribute("userId", "" + user.getId()); //Gán giá trị cho session setAttribute(String srt, Object obj)
+				session.setMaxInactiveInterval(30);  //Đặt thời gian sống cho session
 				
 				resp.sendRedirect(req.getContextPath() + "/home");
-			} else { // logged in fail
+				//xem lại sendRedirect và forward trong tài liệu Servlet (trong đó, sendRedirect được dùng khi: thực hiện một hành động nào đó mà ko muốn gửi dữ liệu đi, hoặc muốn sang một trang mới không có bất kì xử lí dữ liệu gì)
+				//(vd: khi nhấn nút thực hiện login, thì khi xử lí xong, chúng ta chuyển hướng đến một trang nào mong muốn).
+			} else { // logged in fail -> trả lại trở về trang login
 				req.getRequestDispatcher("/WEB-INF/auth/login.jsp").forward(req, resp);
+				//xem lại sendRedirect và forward trong tài liệu Servlet (trong đó, forward được dùng khi: muốn gửi dữ liệu đi, hoặc muốn sang một trang/servlet mới xử lí dữ liệu)
+				//(forward trước khi sử dụng cần được khai báo trong RequestDispatcher)
+				//Ở đây: dùng forward để chuyển tới một trang/servlet mới xử lí dữ liệu là login.jsp.
 			}
 			
 			break;
