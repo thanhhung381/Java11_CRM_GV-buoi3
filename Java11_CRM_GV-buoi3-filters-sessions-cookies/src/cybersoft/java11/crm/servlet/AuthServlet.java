@@ -64,7 +64,7 @@ public class AuthServlet extends HttpServlet {
 			if(user != null) { // logged in successfully
 				HttpSession session = req.getSession(); //Khởi tạo một session
 				
-				session.setAttribute("userId", "" + user.getId()); //Gán giá trị cho session setAttribute(String srt, Object obj)
+				session.setAttribute("userId", "" + user.getId()); //setAttribute(String srt, Object obj) là phương thức để gán giá trị cho session.
 				session.setMaxInactiveInterval(30);  //Đặt thời gian sống cho session
 				
 				resp.sendRedirect(req.getContextPath() + "/home");
