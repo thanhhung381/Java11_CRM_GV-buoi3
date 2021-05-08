@@ -40,4 +40,15 @@ public class Role {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
+	//methods:
+	public boolean kiemTraHopLe() {
+		if(Integer.toString(id) == null || Integer.toString(id).equals("")) 
+			return false;
+		if(name == null || name.equals(""))
+			return false;
+		
+		return true;
+	}
 }

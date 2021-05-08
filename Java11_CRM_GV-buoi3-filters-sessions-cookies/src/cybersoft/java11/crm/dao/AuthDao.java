@@ -36,7 +36,6 @@ public class AuthDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO: 
 			System.out.println("Error in select query.");
 			e.printStackTrace();
 		} finally {
